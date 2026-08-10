@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us — PIC Global Solutions{% endblock %}
+
+{% block content %}
+
+<!-- ============ 1. PAGE HERO ============ -->
+<section class="bg-gradient-to-br from-navy to-[#123a6b] text-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 text-center fade-up">
+    <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Contact Us</p>
+    <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight">
+      Let's Talk About Where Your Business Can Go
+    </h1>
+    <p class="mt-6 text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+      Whether it's supply, compliance, or growth strategy — reach out for a free, no-obligation consultation.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 2. CONTACT FORM + DETAILS ============ -->
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-16">
+
+    <!-- Form -->
+    <div class="fade-up">
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-navy mb-8">Send Us a Message</h2>
+      <form action="#" method="POST" class="space-y-5">
+        <div>
+          <label class="block text-sm font-medium text-text-body mb-1.5">Full Name</label>
+          <input type="text" name="name" required
+                 class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-body mb-1.5">Email Address</label>
+          <input type="email" name="email" required
+                 class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-body mb-1.5">Phone Number</label>
+          <input type="tel" name="phone"
+                 class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-body mb-1.5">How Can We Help?</label>
+          <textarea name="message" rows="5" required
+                    class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40"></textarea>
+        </div>
+        <button type="submit"
+                class="w-full inline-flex items-center justify-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+          Send Message
+        </button>
+      </form>
+    </div>
+
+    <!-- Contact details -->
+    <div class="fade-up">
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-navy mb-8">Get in Touch Directly</h2>
+
+      <div class="space-y-6">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-wider text-gold mb-1">Email</p>
+          <a href="mailto:info@picglobalsolutions.com" class="text-text-body hover:text-navy transition-colors">
+            info@picglobalsolutions.com
+          </a>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-wider text-gold mb-1">Phone</p>
+          <!-- TODO: replace with real phone number -->
+          <p class="text-text-body">[Phone Number]</p>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-wider text-gold mb-1">Location</p>
+          <!-- TODO: replace with real address -->
+          <p class="text-text-body">[City, Country]</p>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-wider text-gold mb-1">Business Hours</p>
+          <p class="text-text-body">Monday – Friday, 8:00 AM – 5:00 PM</p>
+        </div>
+      </div>
+
+      <div class="mt-10 rounded-xl bg-bg-light border border-border-hairline aspect-[4/3] flex items-center justify-center text-text-muted text-sm">
+        <!-- TODO: replace with embedded Google Map -->
+        [ map placeholder ]
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

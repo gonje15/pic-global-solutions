@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Our Services — PIC Global Solutions{% endblock %}
+
+{% block content %}
+
+<!-- ============ 1. PAGE HERO ============ -->
+<section class="bg-gradient-to-br from-navy to-[#123a6b] text-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 text-center fade-up">
+    <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Our Services</p>
+    <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight">
+      Practical Solutions Across Supply, Strategy, and Growth
+    </h1>
+    <p class="mt-6 text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+      Three core service areas, one coordinated partner — so your business gets consistent support instead of fragmented advice.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 2. THE THREE PILLARS (link to sub-pages) ============ -->
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <a href="{{ url_for('supply') }}" class="fade-up group bg-bg-light rounded-xl border border-border-hairline p-8 hover:shadow-lg transition-shadow">
+        <div class="h-12 w-12 rounded-lg bg-navy/5 flex items-center justify-center mb-5">
+          <svg class="h-6 w-6 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        </div>
+        <h3 class="font-display text-xl font-bold text-navy mb-2">Supply of Goods</h3>
+        <p class="text-sm text-text-muted leading-relaxed mb-4">Sourcing and delivery that keeps procurement from becoming a bottleneck.</p>
+        <span class="text-sm font-semibold text-gold group-hover:underline">Learn more →</span>
+      </a>
+
+      <a href="{{ url_for('consultancy') }}" class="fade-up group bg-bg-light rounded-xl border border-border-hairline p-8 hover:shadow-lg transition-shadow">
+        <div class="h-12 w-12 rounded-lg bg-navy/5 flex items-center justify-center mb-5">
+          <svg class="h-6 w-6 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="font-display text-xl font-bold text-navy mb-2">Business Consultancy</h3>
+        <p class="text-sm text-text-muted leading-relaxed mb-4">Structure, compliance, and advisory support built on a disciplined process.</p>
+        <span class="text-sm font-semibold text-gold group-hover:underline">Learn more →</span>
+      </a>
+
+      <a href="{{ url_for('marketing') }}" class="fade-up group bg-bg-light rounded-xl border border-border-hairline p-8 hover:shadow-lg transition-shadow">
+        <div class="h-12 w-12 rounded-lg bg-navy/5 flex items-center justify-center mb-5">
+          <svg class="h-6 w-6 text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+        </div>
+        <h3 class="font-display text-xl font-bold text-navy mb-2">Marketing & Business Development</h3>
+        <p class="text-sm text-text-muted leading-relaxed mb-4">Visibility and growth strategy that turns marketing into a repeatable process.</p>
+        <span class="text-sm font-semibold text-gold group-hover:underline">Learn more →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. CLOSING CTA ============ -->
+<section class="bg-navy text-white relative overflow-hidden">
+  <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28 text-center relative fade-up">
+    <h2 class="font-display text-3xl md:text-4xl font-bold">
+      Not Sure Which Service Fits?
+    </h2>
+    <p class="mt-5 text-white/75">
+      Book a free consultation and we'll help you figure out where to start.
+    </p>
+    <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+      Book Your Free Consultation
+    </a>
+  </div>
+</section>
+
+{% endblock %}

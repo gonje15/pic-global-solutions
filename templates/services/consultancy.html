@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Business Consultancy & Advisory — PIC Global Solutions{% endblock %}
+
+{% block content %}
+
+<!-- ============ 1. PAGE HERO ============ -->
+<section class="bg-gradient-to-br from-navy to-[#123a6b] text-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+    <div class="fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Business Consultancy & Advisory</p>
+      <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight">
+        Strategy and Structure, Not Guesswork
+      </h1>
+      <p class="mt-6 text-lg text-white/80 max-w-lg leading-relaxed">
+        We help you structure, plan, and strengthen your operations, so your business runs on sound strategy backed by financial discipline — not improvisation.
+      </p>
+      <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+        Book a Free Consultation
+      </a>
+    </div>
+    <div class="fade-up rounded-xl bg-white/5 border border-white/10 aspect-[4/3] flex items-center justify-center text-white/40 text-sm">
+      [ image: advisory meeting / strategy session ]
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. WHAT WE OFFER ============ -->
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="text-center max-w-xl mx-auto fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">What We Offer</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">Advisory built on financial discipline</h2>
+    </div>
+
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% set offerings = [
+        ("Business Structuring", "We help you set up or refine the operational structure your business runs on."),
+        ("Accounting & Bookkeeping", "Accurate, current financial records so you always know where you stand."),
+        ("Tax Advisory & Filing", "Registration, filing, and planning that keeps you compliant and penalty-free."),
+        ("Audit & Financial Review", "Independent review of your controls and reporting to catch risk early."),
+        ("Strategic Planning", "Practical, actionable plans for growth — not abstract frameworks."),
+        ("Regulatory Compliance", "Guidance through the regulations that apply to your specific industry.")
+      ] %}
+      {% for title, desc in offerings %}
+      <div class="fade-up bg-bg-light rounded-xl border border-border-hairline p-7">
+        <h3 class="font-semibold text-lg text-navy mb-2">{{ title }}</h3>
+        <p class="text-sm text-text-muted leading-relaxed">{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. HOW IT WORKS ============ -->
+<section class="bg-bg-light">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="text-center max-w-xl mx-auto fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">How It Works</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">From assessment to action</h2>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-4 gap-8 relative">
+      <div class="hidden md:block absolute top-6 left-[12%] right-[12%] h-px bg-border-hairline"></div>
+      {% set steps = [
+        ("01", "Assess", "We review your current operations, finances, and compliance position."),
+        ("02", "Recommend", "You get a clear, practical plan — not generic advice."),
+        ("03", "Implement", "We work alongside you to put the plan into action."),
+        ("04", "Sustain", "Ongoing support keeps you compliant and on track as you grow.")
+      ] %}
+      {% for num, title, desc in steps %}
+      <div class="fade-up relative text-center md:text-left">
+        <div class="relative z-10 h-12 w-12 mx-auto md:mx-0 rounded-full bg-white border-2 border-gold text-gold font-display font-bold flex items-center justify-center">
+          {{ num }}
+        </div>
+        <h3 class="mt-4 font-semibold text-navy">{{ title }}</h3>
+        <p class="mt-1 text-sm text-text-muted">{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. CLOSING CTA ============ -->
+<section class="bg-navy text-white relative overflow-hidden">
+  <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28 text-center relative fade-up">
+    <h2 class="font-display text-3xl md:text-4xl font-bold">
+      Ready to Run on Strategy, Not Guesswork?
+    </h2>
+    <p class="mt-5 text-white/75">
+      Let's talk about where your business stands and what a solid plan looks like.
+    </p>
+    <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+      Book Your Free Consultation
+    </a>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}About Us — PIC Global Solutions{% endblock %}
+
+{% block content %}
+
+<!-- ============ 1. PAGE HERO ============ -->
+<section class="bg-gradient-to-br from-navy to-[#123a6b] text-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 text-center fade-up">
+    <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">About Us</p>
+    <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight">
+      Built to Be the Partner Businesses Can Actually Rely On
+    </h1>
+    <p class="mt-6 text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+      PIC Global Solutions brings Supply of Goods, Business Consultancy, and Marketing & Business Development together under one roof — so growing businesses get coordinated support instead of fragmented advice.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 2. OUR STORY ============ -->
+<section class="bg-white">
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28 fade-up">
+    <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3 text-center">Our Story</p>
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-navy text-center mb-8">Why We Exist</h2>
+    <p class="text-text-muted leading-relaxed">
+      Too many businesses are forced to juggle separate vendors for procurement, financial compliance, and growth strategy — losing time, consistency, and accountability in the process. PIC Global Solutions was founded to close that gap: one dependable partner covering the operational and strategic ground a business needs to move forward, without the friction of managing multiple disconnected providers.
+    </p>
+    <p class="mt-4 text-text-muted leading-relaxed">
+      We built our approach around a simple idea — every engagement, whatever its size, deserves the same structured rigor and transparency we'd want from a partner handling our own business.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 3. VISION & MISSION ============ -->
+<section class="bg-navy text-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12">
+    <div class="fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Vision</p>
+      <p class="font-display text-xl md:text-2xl leading-relaxed">
+        To become a trusted regional partner in supply, consultancy, and business development services — known for reliability, innovation, and client success.
+      </p>
+    </div>
+    <div class="fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Mission</p>
+      <p class="font-display text-xl md:text-2xl leading-relaxed">
+        To deliver high-quality, practical, and efficient business solutions that empower organizations to operate smoothly, grow sustainably, and achieve their objectives.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. OUR VALUES ============ -->
+<section class="bg-bg-light">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="text-center max-w-xl mx-auto fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">What Guides Us</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">Values that hold up under pressure</h2>
+    </div>
+
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      {% set values = [
+        ("Reliability", "We deliver what we promise, when we promise it."),
+        ("Flexibility", "We adapt quickly to client needs and market demands."),
+        ("Efficiency", "We prioritize speed without compromising quality."),
+        ("Integrity", "We maintain transparency in all business dealings."),
+        ("Client Focus", "Every solution is tailored, not copied.")
+      ] %}
+      {% for title, desc in values %}
+      <div class="fade-up text-center lg:text-left">
+        <div class="h-10 w-10 mx-auto lg:mx-0 rounded-full bg-gold/10 flex items-center justify-center mb-4">
+          <div class="h-2 w-2 rounded-full bg-gold"></div>
+        </div>
+        <h3 class="font-semibold text-navy">{{ title }}</h3>
+        <p class="mt-1 text-sm text-text-muted leading-relaxed">{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. THE TEAM (placeholder) ============ -->
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="text-center max-w-xl mx-auto fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Our Team</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">The people behind the partnership</h2>
+    </div>
+
+    <!-- TODO: replace with real team members, photos, and titles before launch -->
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for i in range(3) %}
+      <div class="fade-up text-center">
+        <div class="h-32 w-32 mx-auto rounded-full bg-navy/5 flex items-center justify-center text-text-muted text-xs">
+          [ photo ]
+        </div>
+        <h3 class="mt-4 font-semibold text-navy">[Team Member Name]</h3>
+        <p class="text-sm text-text-muted">[Role / Title]</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. CLOSING CTA ============ -->
+<section class="bg-navy text-white relative overflow-hidden">
+  <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28 text-center relative fade-up">
+    <h2 class="font-display text-3xl md:text-4xl font-bold">
+      Ready to Work With a Partner Who Delivers?
+    </h2>
+    <p class="mt-5 text-white/75">
+      Let's talk about where your business stands and where it can go.
+    </p>
+      <p class="mt-4 text-sm text-white/60">
+  Curious what makes us different? <a href="{{ url_for('why_us') }}" class="underline hover:text-gold transition-colors">See why businesses choose us</a>.
+</p>
+    <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+      Book Your Free Consultation
+    </a>
+  </div>
+</section>
+
+{% endblock %}

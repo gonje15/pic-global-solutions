@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Why Choose Us — PIC Global Solutions{% endblock %}
+
+{% block content %}
+
+<!-- ============ 1. PAGE HERO ============ -->
+<section class="bg-gradient-to-br from-navy to-[#123a6b] text-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 text-center fade-up">
+    <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Why Us</p>
+    <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight">
+      What Actually Sets Us Apart
+    </h1>
+    <p class="mt-6 text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+      Plenty of firms can promise reliability. Here's what we actually do differently to back that up.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 2. THE DIFFERENCE (DETAILED) ============ -->
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="space-y-16">
+
+      <div class="fade-up grid md:grid-cols-3 gap-8 items-start">
+        <div>
+          <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-2">01</p>
+          <h3 class="font-display text-2xl font-bold text-navy">One Partner, Not Five Vendors</h3>
+        </div>
+        <p class="md:col-span-2 text-text-muted leading-relaxed">
+          Most businesses juggle a separate supplier, a separate accountant, and a separate marketing contractor — each with their own timelines, communication gaps, and blind spots. We cover supply, financial compliance, and growth strategy under one roof, so nothing falls through the cracks between providers.
+        </p>
+      </div>
+
+      <div class="fade-up grid md:grid-cols-3 gap-8 items-start">
+        <div>
+          <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-2">02</p>
+          <h3 class="font-display text-2xl font-bold text-navy">A Process, Not Improvisation</h3>
+        </div>
+        <p class="md:col-span-2 text-text-muted leading-relaxed">
+          Every engagement follows the same five-stage framework — understand, design, execute, deliver, sustain. You always know what stage you're at and what happens next, instead of wondering if your project has stalled.
+        </p>
+      </div>
+
+      <div class="fade-up grid md:grid-cols-3 gap-8 items-start">
+        <div>
+          <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-2">03</p>
+          <h3 class="font-display text-2xl font-bold text-navy">Transparent Reporting, Always</h3>
+        </div>
+        <p class="md:col-span-2 text-text-muted leading-relaxed">
+          No vague monthly summaries. You get clear, honest reporting on what's been done, why it was done, and what it costs — so you're never caught off guard by scope creep or surprise invoices.
+        </p>
+      </div>
+
+      <div class="fade-up grid md:grid-cols-3 gap-8 items-start">
+        <div>
+          <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-2">04</p>
+          <h3 class="font-display text-2xl font-bold text-navy">Built for Businesses of Any Size</h3>
+        </div>
+        <p class="md:col-span-2 text-text-muted leading-relaxed">
+          Our solutions are shaped around your specific situation, not delivered from a fixed template. Whether you're a small operation just getting compliant or a growing company scaling supply chains, the approach adapts to you.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. TESTIMONIAL ============ -->
+<section class="bg-bg-light">
+  <div class="max-w-3xl mx-auto px-6 md:px-10 py-20 md:py-28 fade-up text-center">
+    <p class="font-display text-xl md:text-2xl text-navy leading-relaxed">
+      "PIC Global Solutions handled our bookkeeping and tax filing with a level of clarity we hadn't experienced with previous consultants. They didn't just deliver reports — they explained what the numbers meant for our next move."
+    </p>
+    <p class="mt-6 text-sm font-semibold text-text-muted">— [Client Name], [Company / Industry] <span class="italic font-normal">(placeholder)</span></p>
+  </div>
+</section>
+
+<!-- ============ 4. CLOSING CTA ============ -->
+<section class="bg-navy text-white relative overflow-hidden">
+  <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28 text-center relative fade-up">
+    <h2 class="font-display text-3xl md:text-4xl font-bold">
+      See the Difference for Yourself
+    </h2>
+    <p class="mt-5 text-white/75">
+      Book a free consultation and find out how a coordinated partner changes the way your business runs.
+    </p>
+    <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+      Book Your Free Consultation
+    </a>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Supply of Goods — PIC Global Solutions{% endblock %}
+
+{% block content %}
+
+<!-- ============ 1. PAGE HERO ============ -->
+<section class="bg-gradient-to-br from-navy to-[#123a6b] text-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+    <div class="fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Supply of Goods</p>
+      <h1 class="font-display text-4xl md:text-5xl font-bold leading-tight">
+        Procurement That Stops Being a Bottleneck
+      </h1>
+      <p class="mt-6 text-lg text-white/80 max-w-lg leading-relaxed">
+        We source and deliver the goods your business needs, reliably and on schedule, so supply chain management becomes one less thing you have to worry about.
+      </p>
+      <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+        Book a Free Consultation
+      </a>
+    </div>
+    <div class="fade-up rounded-xl bg-white/5 border border-white/10 aspect-[4/3] flex items-center justify-center text-white/40 text-sm">
+      [ image: warehouse / logistics ]
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. WHAT WE SUPPLY ============ -->
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="text-center max-w-xl mx-auto fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">What We Offer</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">Sourcing built around your operations</h2>
+    </div>
+
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% set offerings = [
+        ("Sourcing & Procurement", "We identify and secure reliable suppliers for the goods your business depends on."),
+        ("Bulk & Wholesale Supply", "Competitive pricing on larger volume orders without sacrificing delivery reliability."),
+        ("Logistics Coordination", "We manage delivery timelines so goods arrive when your operations need them."),
+        ("Quality Assurance", "Every order is checked against your specifications before it reaches you."),
+        ("Vendor Management", "We handle supplier relationships and negotiations on your behalf."),
+        ("Flexible Ordering", "One-off orders or recurring supply agreements, scaled to your needs.")
+      ] %}
+      {% for title, desc in offerings %}
+      <div class="fade-up bg-bg-light rounded-xl border border-border-hairline p-7">
+        <h3 class="font-semibold text-lg text-navy mb-2">{{ title }}</h3>
+        <p class="text-sm text-text-muted leading-relaxed">{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. HOW IT WORKS ============ -->
+<section class="bg-bg-light">
+  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="text-center max-w-xl mx-auto fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">How It Works</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">From request to delivery</h2>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-4 gap-8 relative">
+      <div class="hidden md:block absolute top-6 left-[12%] right-[12%] h-px bg-border-hairline"></div>
+      {% set steps = [
+        ("01", "Tell Us What You Need", "Share your requirements — quantity, specs, timeline."),
+        ("02", "We Source Options", "We identify suppliers and present the best fit for cost and quality."),
+        ("03", "You Approve", "Review pricing and timelines before we place the order."),
+        ("04", "We Deliver", "Goods arrive on schedule, with quality checked along the way.")
+      ] %}
+      {% for num, title, desc in steps %}
+      <div class="fade-up relative text-center md:text-left">
+        <div class="relative z-10 h-12 w-12 mx-auto md:mx-0 rounded-full bg-white border-2 border-gold text-gold font-display font-bold flex items-center justify-center">
+          {{ num }}
+        </div>
+        <h3 class="mt-4 font-semibold text-navy">{{ title }}</h3>
+        <p class="mt-1 text-sm text-text-muted">{{ desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. CLOSING CTA ============ -->
+<section class="bg-navy text-white relative overflow-hidden">
+  <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28 text-center relative fade-up">
+    <h2 class="font-display text-3xl md:text-4xl font-bold">
+      Ready to Simplify Your Procurement?
+    </h2>
+    <p class="mt-5 text-white/75">
+      Tell us what your business needs, and we'll take it from there.
+    </p>
+    <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+      Book Your Free Consultation
+    </a>
+  </div>
+</section>
+
+{% endblock %}
