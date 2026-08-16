@@ -24,7 +24,7 @@
     <!-- Form -->
     <div class="fade-up">
       <h2 class="font-display text-2xl md:text-3xl font-bold text-navy mb-8">Send Us a Message</h2>
-      <form action="#" method="POST" class="space-y-5">
+     <form action="{{ url_for('contact') }}" method="POST" class="space-y-5">
         <div>
           <label class="block text-sm font-medium text-text-body mb-1.5">Full Name</label>
           <input type="text" name="name" required

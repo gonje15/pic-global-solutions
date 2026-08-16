@@ -18,7 +18,7 @@
         <a href="#contact" class="inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
           Book a Free Consultation
         </a>
-        <a href="#services" class="inline-flex items-center px-7 py-3.5 rounded-md border border-white/30 text-white font-semibold hover:bg-white/10 transition">
+        <a href="{{ url_for('services') }}" class="inline-flex items-center px-7 py-3.5 rounded-md border border-white/30 text-white font-semibold hover:bg-white/10 transition">
           Explore Services
         </a>
       </div>
@@ -150,35 +150,19 @@
   </div>
 </section>
 
-<!-- ============ 6. WHY PIC GLOBAL (VALUE GRID) ============ -->
+<!-- ============ 6. WHY PIC GLOBAL (TEASER) ============ -->
 <section class="bg-bg-light">
-  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
-    <div class="text-center max-w-xl mx-auto fade-up">
-      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Why PIC Global Solutions</p>
-      <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">Built on values that hold up under pressure</h2>
-    </div>
-
-    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-      {% set values = [
-        ("Reliability", "We deliver what we promise, when we promise it."),
-        ("Flexibility", "We adapt quickly to client needs and market demands."),
-        ("Efficiency", "We prioritize speed without compromising quality."),
-        ("Integrity", "We maintain transparency in all business dealings."),
-        ("Client Focus", "Every solution is tailored, not copied.")
-      ] %}
-      {% for title, desc in values %}
-      <div class="fade-up text-center lg:text-left">
-        <div class="h-10 w-10 mx-auto lg:mx-0 rounded-full bg-gold/10 flex items-center justify-center mb-4">
-          <div class="h-2 w-2 rounded-full bg-gold"></div>
-        </div>
-        <h3 class="font-semibold text-navy">{{ title }}</h3>
-        <p class="mt-1 text-sm text-text-muted leading-relaxed">{{ desc }}</p>
-      </div>
-      {% endfor %}
-    </div>
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28 text-center fade-up">
+    <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Why PIC Global Solutions</p>
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-navy mb-5">Built on values that hold up under pressure</h2>
+    <p class="text-text-muted leading-relaxed mb-6">
+      Reliability, flexibility, efficiency, integrity, and client focus — five principles that shape every engagement, no matter the size.
+    </p>
+    <a href="{{ url_for('about') }}" class="inline-flex items-center text-sm font-semibold text-gold hover:underline">
+      See our full values on the About page →
+    </a>
   </div>
 </section>
-
 <!-- ============ 7. TRUST & CREDIBILITY ============ -->
 <section id="about" class="bg-white">
   <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28">
@@ -201,35 +185,20 @@
 
     </div>
 
-    <!-- Testimonial (placeholder — replace with a real client quote before launch) -->
-    <div class="fade-up mt-16 bg-bg-light rounded-2xl border border-border-hairline p-8 md:p-12 max-w-3xl mx-auto text-center">
-      <p class="font-display text-xl md:text-2xl text-navy leading-relaxed">
-        "PIC Global Solutions handled our bookkeeping and tax filing with a level of clarity we hadn't experienced with previous consultants. They didn't just deliver reports — they explained what the numbers meant for our next move."
-      </p>
-      <p class="mt-6 text-sm font-semibold text-text-muted">— [Client Name], [Company / Industry] <span class="italic font-normal">(placeholder)</span></p>
-    </div>
-
-    <p class="fade-up mt-10 text-center text-text-muted italic max-w-xl mx-auto">
+<p class="fade-up mt-16 text-center text-text-muted italic max-w-xl mx-auto">
       "We treat every engagement — no matter its size — with the same structured rigor and accountability we'd want from a partner handling our own business."
     </p>
-  </div>
-</section>
 
-<!-- ============ 8. VISION & MISSION ============ -->
+<!-- ============ 8. VISION & MISSION (TEASER) ============ -->
 <section class="bg-navy text-white">
-  <div class="max-w-content mx-auto px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12">
-    <div class="fade-up">
-      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Vision</p>
-      <p class="font-display text-xl md:text-2xl leading-relaxed">
-        To become a trusted regional partner in supply, consultancy, and business development services — known for reliability, innovation, and client success.
-      </p>
-    </div>
-    <div class="fade-up">
-      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Mission</p>
-      <p class="font-display text-xl md:text-2xl leading-relaxed">
-        To deliver high-quality, practical, and efficient business solutions that empower organizations to operate smoothly, grow sustainably, and achieve their objectives.
-      </p>
-    </div>
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28 text-center fade-up">
+    <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Our Vision & Mission</p>
+    <p class="font-display text-xl md:text-2xl leading-relaxed">
+      To become a trusted regional partner in supply, consultancy, and business development — delivering practical solutions that help businesses grow sustainably.
+    </p>
+    <a href="{{ url_for('about') }}" class="mt-6 inline-flex items-center text-sm font-semibold text-gold hover:underline">
+      Read our full vision and mission →
+    </a>
   </div>
 </section>
 

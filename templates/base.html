@@ -59,7 +59,7 @@
 
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-text-body">
         <a href="{{ url_for('home') }}" class="hover:text-navy transition-colors">Home</a>
-        <a href="#services" class="hover:text-navy transition-colors">Services</a>
+        <a href="{{ url_for('services') }}" class="hover:text-navy transition-colors">Services</a>
         <a href="{{ url_for('about') }}" class="hover:text-navy transition-colors">About</a>
         <a href="#insights" class="hover:text-navy transition-colors">Insights</a>
         <a href="{{ url_for('contact') }}" class="hover:text-navy transition-colors">Contact</a>
@@ -79,7 +79,7 @@
     <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-border-hairline px-6 py-5 flex flex-col gap-4 text-sm font-medium text-text-body">
       <a href="{{ url_for('home') }}">Home</a>
-      <a href="#services">Services</a>
+      <a href="{{ url_for('services') }}">Services</a>
       <a href="{{ url_for('about') }}">About</a>
       <a href="#insights">Insights</a>
       <a href="{{ url_for('contact') }}">Contact</a>
@@ -90,8 +90,19 @@
   </header>
 
   <main class="pt-20">
-    {% block content %}{% endblock %}
-  </main>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="max-w-content mx-auto px-6 md:px-10 pt-6">
+        {% for category, message in messages %}
+          <div class="rounded-md bg-gold/10 border border-gold text-navy px-4 py-3 text-sm font-medium">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
 
   <!-- ============ FOOTER ============ -->
   <footer class="bg-navy text-white/80">
@@ -103,12 +114,12 @@
       <div>
         <p class="text-sm font-semibold text-white mb-3 uppercase tracking-wide">Services</p>
         <ul class="space-y-2 text-sm text-white/70">
-          <li><a href="#services" class="hover:text-gold transition-colors">Accounting</a></li>
-          <li><a href="#services" class="hover:text-gold transition-colors">Tax</a></li>
-          <li><a href="#services" class="hover:text-gold transition-colors">Advisory</a></li>
-          <li><a href="#services" class="hover:text-gold transition-colors">Audit</a></li>
-          <li><a href="#services" class="hover:text-gold transition-colors">Supply of Goods</a></li>
-          <li><a href="#services" class="hover:text-gold transition-colors">Marketing</a></li>
+         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Accounting</a></li>
+         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Tax</a></li>
+         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Advisory</a></li>
+         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Audit</a></li>
+         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Supply of Goods</a></li>
+         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Marketing</a></li>
         </ul>
       </div>
       <div>
