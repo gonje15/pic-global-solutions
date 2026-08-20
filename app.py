@@ -1,9 +1,12 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash
+import time
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
+from google import genai
+from google.genai import errors
 
 load_dotenv()  # reads variables from .env into the environment
 
@@ -22,6 +25,7 @@ app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
 
 db = SQLAlchemy(app)
 mail = Mail(app)
+gemini_client = genai.Client(api_key=os.environ.get('GEMINI_API_KEY'))
 
 
 # --- Database Model ---
@@ -34,11 +38,26 @@ class ContactSubmission(db.Model):
     submitted_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+# --- Gemini Helper ---
+def ask_gemini(prompt, retries=3):
+    for attempt in range(retries):
+        try:
+            response = gemini_client.models.generate_content(
+                model='gemini-3.6-flash',
+                contents=prompt
+            )
+            return response.text
+        except errors.ServerError:
+            time.sleep(2 * (attempt + 1))
+    return None
+
+
 @app.context_processor
 def inject_year():
     return {'current_year': datetime.now().year}
 
 
+# --- Page Routes ---
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -99,6 +118,35 @@ def marketing():
 @app.route('/services/supply')
 def supply():
     return render_template('services/supply.html')
+
+
+# --- API Routes ---
+@app.route('/api/service-fit', methods=['POST'])
+def service_fit():
+    data = request.get_json()
+    description = (data.get('description') or '').strip()
+
+    if not description:
+        return jsonify({'error': 'Please describe your business situation first.'}), 400
+
+    if len(description) > 500:
+        return jsonify({'error': 'Please keep your description under 500 characters.'}), 400
+
+    prompt = f"""You are a service-recommendation assistant for P.I.C Global Solutions, a consultancy offering exactly three services:
+1. Supply of Goods — sourcing and procurement of goods
+2. Business Consultancy & Advisory — accounting, tax, audit, business strategy
+3. Marketing & Business Development — visibility, lead generation, growth strategy
+
+Based on the business situation below, recommend ONE of these three services (or note if it's a mix of two, but never all three). Keep your response to 2-3 friendly, specific sentences. Do not recommend anything outside this list of three services, and do not make claims about pricing or timelines.
+
+Business situation: {description}"""
+
+    result = ask_gemini(prompt)
+
+    if result is None:
+        return jsonify({'error': 'Our assistant is temporarily busy. Please try again in a moment.'}), 503
+
+    return jsonify({'recommendation': result})
 
 
 if __name__ == '__main__':

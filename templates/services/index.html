@@ -53,6 +53,92 @@
   </div>
 </section>
 
+
+<!-- ============ 2.5 SERVICE-FIT WIDGET ============ -->
+<section class="bg-bg-light">
+  <div class="max-w-2xl mx-auto px-6 md:px-10 py-20 md:py-28">
+    <div class="text-center mb-10 fade-up">
+      <p class="text-gold font-semibold text-sm uppercase tracking-wider mb-3">Not Sure Where to Start?</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">Tell us about your business</h2>
+      <p class="mt-4 text-text-muted">Describe your situation in a sentence or two, and we'll point you to the right service.</p>
+    </div>
+
+    <div class="fade-up bg-white rounded-xl border border-border-hairline p-6 md:p-8">
+      <textarea
+        id="service-fit-input"
+        rows="3"
+        maxlength="500"
+        placeholder="e.g. I run a small manufacturing business and need help with tax compliance..."
+        class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40 resize-none"
+      ></textarea>
+
+      <button
+        id="service-fit-button"
+        class="mt-4 inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Get a Recommendation
+      </button>
+
+      <div id="service-fit-result" class="mt-6 hidden">
+        <div class="bg-bg-light rounded-lg border border-border-hairline p-5">
+          <p class="text-sm font-semibold text-gold uppercase tracking-wider mb-2">Our Suggestion</p>
+          <p id="service-fit-text" class="text-navy leading-relaxed"></p>
+        </div>
+      </div>
+
+      <div id="service-fit-error" class="mt-4 hidden text-sm text-red-600"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('service-fit-button').addEventListener('click', async function () {
+    const input = document.getElementById('service-fit-input');
+    const button = document.getElementById('service-fit-button');
+    const resultBox = document.getElementById('service-fit-result');
+    const resultText = document.getElementById('service-fit-text');
+    const errorBox = document.getElementById('service-fit-error');
+
+    const description = input.value.trim();
+
+    resultBox.classList.add('hidden');
+    errorBox.classList.add('hidden');
+
+    if (!description) {
+      errorBox.textContent = 'Please describe your business situation first.';
+      errorBox.classList.remove('hidden');
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'Thinking...';
+
+    try {
+      const response = await fetch("{{ url_for('service_fit') }}", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: description })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        errorBox.textContent = data.error || 'Something went wrong. Please try again.';
+        errorBox.classList.remove('hidden');
+      } else {
+        resultText.textContent = data.recommendation.replace(/\*\*/g, '');
+        resultBox.classList.remove('hidden');
+      }
+    } catch (err) {
+      errorBox.textContent = 'Could not reach the server. Please try again.';
+      errorBox.classList.remove('hidden');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Get a Recommendation';
+    }
+  });
+</script>
+
 <!-- ============ 3. CLOSING CTA ============ -->
 <section class="bg-navy text-white relative overflow-hidden">
   <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl"></div>
