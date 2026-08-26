@@ -73,11 +73,11 @@
       ></textarea>
 
       <button
-        id="service-fit-button"
-        class="mt-4 inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition disabled:opacity-50 disabled:cursor-not-allowed"
+       id="service-fit-button"
+       class="btn-glow-wrap mt-4 inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition disabled:cursor-not-allowed"
       >
         Get a Recommendation
-      </button>
+      </>
 
       <div id="service-fit-result" class="mt-6 hidden">
         <div class="bg-bg-light rounded-lg border border-border-hairline p-5">
@@ -112,6 +112,7 @@
 
     button.disabled = true;
     button.textContent = 'Thinking...';
+    button.classList.add('btn-glow');
 
     try {
       const response = await fetch("{{ url_for('service_fit') }}", {
@@ -135,6 +136,7 @@
     } finally {
       button.disabled = false;
       button.textContent = 'Get a Recommendation';
+      button.classList.remove('btn-glow');
     }
   });
 </script>
