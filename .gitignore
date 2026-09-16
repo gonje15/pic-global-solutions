@@ -5,3 +5,6 @@ __pycache__/
 .idea/
 .venv/
 instance/
+node_modules/
+node_modules/
+node_modules/

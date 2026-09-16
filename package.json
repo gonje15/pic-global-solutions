@@ -1,0 +1,25 @@
+{
+  "name": "pic-global-solutions",
+  "version": "1.0.0",
+  "description": "git config user.email \"176077316+gonje15@users.noreply.github.com\" git commit --amend --reset-author --no-edit git push -u origin main",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gonje15/pic-global-solutions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gonje15/pic-global-solutions/issues"
+  },
+  "homepage": "https://github.com/gonje15/pic-global-solutions#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

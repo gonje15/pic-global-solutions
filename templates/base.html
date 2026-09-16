@@ -11,31 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS via CDN (no build step needed) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: '#0B2545',
-            gold: '#C9A227',
-            'bg-light': '#F7F8FA',
-            'text-body': '#2E3440',
-            'text-muted': '#5B6472',
-            'border-hairline': '#E4E7EB',
-          },
-          fontFamily: {
-            display: ['"Playfair Display"', 'serif'],
-            body: ['Inter', 'sans-serif'],
-          },
-          maxWidth: {
-            'content': '1280px',
-          }
-        }
-      }
-    }
-  </script>
+<!-- Compiled Tailwind CSS (no external dependency) -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
 
 <style>
   html { scroll-behavior: smooth; }
