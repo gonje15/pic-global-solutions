@@ -8,7 +8,8 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import errors
 
-load_dotenv()  # reads variables from .env into the environment
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, '.env'))  # absolute path so it works under WSGI too
 
 app = Flask(__name__)
 
@@ -36,6 +37,11 @@ class ContactSubmission(db.Model):
     phone = db.Column(db.String(30))
     message = db.Column(db.Text, nullable=False)
     submitted_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+# Create tables on first run (e.g. a fresh deploy with no instance/contacts.db yet)
+with app.app_context():
+    db.create_all()
 
 
 # --- Gemini Helper ---
