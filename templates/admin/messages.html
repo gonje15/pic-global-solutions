@@ -1,0 +1,94 @@
+{% extends "admin/base.html" %}
+{% from "admin/_macros.html" import status_badge %}
+{% block title %}Inbox{% endblock %}
+{% block content %}
+
+<div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+  <div>
+    <h1 class="font-display text-2xl md:text-3xl font-bold text-navy">Inbox</h1>
+    <p class="text-sm text-text-muted mt-1">{{ page.total }} enquir{{ 'y' if page.total == 1 else 'ies' }}{% if filters.status or filters.service or filters.q %} match these filters{% endif %}</p>
+  </div>
+  <a href="{{ url_for('admin.export_csv', **filters) }}" class="px-4 py-2 rounded-md border border-border-hairline bg-white text-sm font-semibold text-navy hover:bg-bg-light">
+    Download CSV
+  </a>
+</div>
+
+<!-- Filters: one row above the list -->
+<form method="GET" class="flex flex-wrap gap-2 mb-4">
+  <input type="search" name="q" value="{{ filters.q }}" placeholder="Search name, email, phone, message…" aria-label="Search"
+         class="flex-1 min-w-48 px-3 py-2 rounded-md border border-border-hairline bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gold/40">
+  <select name="status" aria-label="Status" class="px-3 py-2 rounded-md border border-border-hairline bg-white text-sm">
+    <option value="">All statuses</option>
+    {% for key, label in statuses %}<option value="{{ key }}" {{ 'selected' if filters.status == key }}>{{ label }}</option>{% endfor %}
+  </select>
+  <select name="service" aria-label="Service" class="px-3 py-2 rounded-md border border-border-hairline bg-white text-sm">
+    <option value="">All services</option>
+    {% for key, label in services %}<option value="{{ key }}" {{ 'selected' if filters.service == key }}>{{ label }}</option>{% endfor %}
+    <option value="none" {{ 'selected' if filters.service == 'none' }}>Not specified</option>
+  </select>
+  <button type="submit" class="px-4 py-2 rounded-md bg-navy text-white text-sm font-semibold hover:bg-navy/90">Filter</button>
+  {% if filters.status or filters.service or filters.q %}
+  <a href="{{ url_for('admin.messages') }}" class="px-3 py-2 text-sm text-text-muted hover:text-navy">Clear</a>
+  {% endif %}
+</form>
+
+{% if page.items %}
+<div class="rounded-xl bg-white border border-border-hairline overflow-hidden">
+  <!-- Table on wide screens -->
+  <table class="hidden md:table w-full text-sm">
+    <thead class="bg-bg-light text-xs uppercase tracking-wider text-text-muted">
+      <tr>
+        <th class="text-left font-semibold px-4 py-3">From</th>
+        <th class="text-left font-semibold px-4 py-3">Service</th>
+        <th class="text-left font-semibold px-4 py-3">Message</th>
+        <th class="text-left font-semibold px-4 py-3">Status</th>
+        <th class="text-left font-semibold px-4 py-3 whitespace-nowrap">Received</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-border-hairline">
+      {% for s in page.items %}
+      <tr class="hover:bg-bg-light cursor-pointer {{ 'font-semibold' if s.status == 'new' }}" onclick="location.href='{{ url_for('admin.message_detail', submission_id=s.id) }}'">
+        <td class="px-4 py-3">
+          <a href="{{ url_for('admin.message_detail', submission_id=s.id) }}" class="text-navy hover:underline">{{ s.name }}</a>
+          <div class="text-xs font-normal text-text-muted">{{ s.email }}</div>
+        </td>
+        <td class="px-4 py-3 font-normal text-text-body">{{ s.service_label }}</td>
+        <td class="px-4 py-3 font-normal text-text-muted max-w-sm"><p class="truncate">{{ s.message }}</p></td>
+        <td class="px-4 py-3">{{ status_badge(s.status, s.status_label) }}</td>
+        <td class="px-4 py-3 font-normal text-text-muted whitespace-nowrap">{{ s.submitted_at | localtime('%d %b %Y') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Cards on phones -->
+  <ul class="md:hidden divide-y divide-border-hairline">
+    {% for s in page.items %}
+    <li>
+      <a href="{{ url_for('admin.message_detail', submission_id=s.id) }}" class="block p-4 hover:bg-bg-light">
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-navy truncate {{ 'font-semibold' if s.status == 'new' else 'font-medium' }}">{{ s.name }}</span>
+          {{ status_badge(s.status, s.status_label) }}
+        </div>
+        <p class="text-xs text-text-muted mt-1">{{ s.service_label }} · {{ s.submitted_at | localtime('%d %b %Y') }}</p>
+        <p class="text-sm text-text-body mt-1 line-clamp-2">{{ s.message }}</p>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% if page.pages > 1 %}
+<nav class="mt-4 flex items-center justify-between text-sm" aria-label="Pagination">
+  {% if page.has_prev %}<a href="{{ url_for('admin.messages', page=page.prev_num, **filters) }}" class="px-3 py-2 rounded-md border border-border-hairline bg-white hover:bg-bg-light">← Newer</a>{% else %}<span></span>{% endif %}
+  <span class="text-text-muted">Page {{ page.page }} of {{ page.pages }}</span>
+  {% if page.has_next %}<a href="{{ url_for('admin.messages', page=page.next_num, **filters) }}" class="px-3 py-2 rounded-md border border-border-hairline bg-white hover:bg-bg-light">Older →</a>{% else %}<span></span>{% endif %}
+</nav>
+{% endif %}
+
+{% else %}
+<div class="rounded-xl bg-white border border-border-hairline p-10 text-center text-text-muted">
+  {% if filters.status or filters.service or filters.q %}No enquiries match these filters.{% else %}No enquiries yet. They'll appear here as soon as someone uses the contact form.{% endif %}
+</div>
+{% endif %}
+{% endblock %}

@@ -15,10 +15,10 @@
         From supply to strategy, we handle the operational and financial details so you can focus on running your business — with the accuracy, compliance, and reliability that growth demands.
       </p>
       <div class="mt-8 flex flex-wrap gap-4">
-        <a href="{{ url_for('contact') }}" class="inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+        <a href="{{ booking_url }}" class="inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
           Book a Free Consultation
         </a>
-        <a href="{{ url_for('services') }}" class="inline-flex items-center px-7 py-3.5 rounded-md border border-white/30 text-white font-semibold hover:bg-white/10 transition">
+        <a href="{{ url_for('public.services') }}" class="inline-flex items-center px-7 py-3.5 rounded-md border border-white/30 text-white font-semibold hover:bg-white/10 transition">
           Explore Services
         </a>
       </div>
@@ -158,7 +158,7 @@
     <p class="text-text-muted leading-relaxed mb-6">
       Reliability, flexibility, efficiency, integrity, and client focus — five principles that shape every engagement, no matter the size.
     </p>
-    <a href="{{ url_for('about') }}" class="inline-flex items-center text-sm font-semibold text-gold hover:underline">
+    <a href="{{ url_for('public.about') }}" class="inline-flex items-center text-sm font-semibold text-gold hover:underline">
       See our full values on the About page →
     </a>
   </div>
@@ -198,7 +198,7 @@
     <p class="font-display text-xl md:text-2xl leading-relaxed">
       To become a trusted regional partner in supply, consultancy, and business development — delivering practical solutions that help businesses grow sustainably.
     </p>
-    <a href="{{ url_for('about') }}" class="mt-6 inline-flex items-center text-sm font-semibold text-gold hover:underline">
+    <a href="{{ url_for('public.about') }}" class="mt-6 inline-flex items-center text-sm font-semibold text-gold hover:underline">
       Read our full vision and mission →
     </a>
   </div>
@@ -250,7 +250,7 @@
     <p class="mt-5 text-white/75">
       Book a free consultation and get a clear plan for your supply, compliance, or growth needs — no obligation, no pressure.
     </p>
-    <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+    <a href="{{ booking_url }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
       Book Your Free Consultation
     </a>
     <p class="mt-4 text-xs text-white/50">

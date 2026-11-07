@@ -24,19 +24,19 @@
   <header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-border-hairline transition-shadow duration-300">
     <div class="max-w-content mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
 
-      <a href="{{ url_for('home') }}" class="font-display text-xl font-bold text-navy leading-none">
+      <a href="{{ url_for('public.home') }}" class="font-display text-xl font-bold text-navy leading-none">
         P.I.C <span class="text-gold">Global Solutions</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-text-body">
-        <a href="{{ url_for('home') }}" class="hover:text-navy transition-colors">Home</a>
-        <a href="{{ url_for('services') }}" class="hover:text-navy transition-colors">Services</a>
-        <a href="{{ url_for('about') }}" class="hover:text-navy transition-colors">About</a>
-        <a href="{{ url_for('home') }}#insights" class="hover:text-navy transition-colors">Insights</a>
-        <a href="{{ url_for('contact') }}" class="hover:text-navy transition-colors">Contact</a>
+        <a href="{{ url_for('public.home') }}" class="hover:text-navy transition-colors">Home</a>
+        <a href="{{ url_for('public.services') }}" class="hover:text-navy transition-colors">Services</a>
+        <a href="{{ url_for('public.about') }}" class="hover:text-navy transition-colors">About</a>
+        <a href="{{ url_for('public.home') }}#insights" class="hover:text-navy transition-colors">Insights</a>
+        <a href="{{ url_for('public.contact') }}" class="hover:text-navy transition-colors">Contact</a>
       </nav>
 
-      <a href="{{ url_for('contact') }}" class="hidden md:inline-flex items-center px-5 py-2.5 rounded-md bg-navy text-white text-sm font-semibold hover:bg-navy/90 transition-colors">
+      <a href="{{ booking_url }}" class="hidden md:inline-flex items-center px-5 py-2.5 rounded-md bg-navy text-white text-sm font-semibold hover:bg-navy/90 transition-colors">
         Book Your Free Consultation
       </a>
 
@@ -49,12 +49,12 @@
 
     <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-border-hairline px-6 py-4 flex flex-col gap-1 text-sm font-medium text-text-body">
-      <a href="{{ url_for('home') }}" class="py-2.5">Home</a>
-      <a href="{{ url_for('services') }}" class="py-2.5">Services</a>
-      <a href="{{ url_for('about') }}" class="py-2.5">About</a>
-      <a href="{{ url_for('home') }}#insights" class="py-2.5">Insights</a>
-      <a href="{{ url_for('contact') }}" class="py-2.5">Contact</a>
-      <a href="{{ url_for('contact') }}" class="mt-2 inline-flex items-center justify-center px-5 py-3 rounded-md bg-navy text-white font-semibold">
+      <a href="{{ url_for('public.home') }}" class="py-2.5">Home</a>
+      <a href="{{ url_for('public.services') }}" class="py-2.5">Services</a>
+      <a href="{{ url_for('public.about') }}" class="py-2.5">About</a>
+      <a href="{{ url_for('public.home') }}#insights" class="py-2.5">Insights</a>
+      <a href="{{ url_for('public.contact') }}" class="py-2.5">Contact</a>
+      <a href="{{ booking_url }}" class="mt-2 inline-flex items-center justify-center px-5 py-3 rounded-md bg-navy text-white font-semibold">
         Book Your Free Consultation
       </a>
     </div>
@@ -85,12 +85,12 @@
       <div>
         <p class="text-sm font-semibold text-white mb-3 uppercase tracking-wide">Services</p>
         <ul class="space-y-2 text-sm text-white/70">
-         <li><a href="{{ url_for('service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Accounting</a></li>
-         <li><a href="{{ url_for('service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Tax</a></li>
-         <li><a href="{{ url_for('service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Advisory</a></li>
-         <li><a href="{{ url_for('service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Audit</a></li>
-         <li><a href="{{ url_for('service_detail', slug='supply') }}" class="hover:text-gold transition-colors">Supply of Goods</a></li>
-         <li><a href="{{ url_for('service_detail', slug='marketing') }}" class="hover:text-gold transition-colors">Marketing</a></li>
+         <li><a href="{{ url_for('public.service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Accounting</a></li>
+         <li><a href="{{ url_for('public.service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Tax</a></li>
+         <li><a href="{{ url_for('public.service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Advisory</a></li>
+         <li><a href="{{ url_for('public.service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Audit</a></li>
+         <li><a href="{{ url_for('public.service_detail', slug='supply') }}" class="hover:text-gold transition-colors">Supply of Goods</a></li>
+         <li><a href="{{ url_for('public.service_detail', slug='marketing') }}" class="hover:text-gold transition-colors">Marketing</a></li>
         </ul>
       </div>
       <div>
@@ -109,7 +109,7 @@
       </div>
     </div>
     <div class="border-t border-white/10 py-6 text-center text-xs text-white/50">
-      &copy; {{ current_year }} P.I.C Global Solutions. All rights reserved.
+      &copy; {{ current_year }} P.I.C Global Solutions. All rights reserved. · <a href="{{ url_for('public.privacy') }}" class="hover:text-gold transition-colors">Privacy</a>
     </div>
   </footer>
 
@@ -144,6 +144,13 @@
     }, { threshold: 0.15 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   </script>
+
+  {% if whatsapp_url %}
+  <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"
+     class="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-[#25D366] text-white shadow-lg flex items-center justify-center hover:brightness-95 transition">
+    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.36A9.9 9.9 0 1 0 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.08.8.82-3-.2-.31a8.2 8.2 0 1 1 6.96 3.84zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.79.97-.14.16-.29.18-.54.06a6.7 6.7 0 0 1-3.32-2.9c-.25-.43.25-.4.72-1.33.08-.16.04-.3-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.48a.92.92 0 0 0-.66.31 2.78 2.78 0 0 0-.87 2.07 4.83 4.83 0 0 0 1.01 2.56 11.05 11.05 0 0 0 4.23 3.74c1.58.68 2.2.74 2.99.62.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.16-.48-.29z"/></svg>
+  </a>
+  {% endif %}
 
   {% block extra_scripts %}{% endblock %}
 </body>

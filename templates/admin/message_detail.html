@@ -1,0 +1,85 @@
+{% extends "admin/base.html" %}
+{% from "admin/_macros.html" import status_badge %}
+{% block title %}{{ sub.name }}{% endblock %}
+{% block content %}
+
+<a href="{{ url_for('admin.messages') }}" class="text-sm text-text-muted hover:text-navy">← Inbox</a>
+
+<div class="mt-3 grid lg:grid-cols-3 gap-4 md:gap-6">
+
+  <!-- The enquiry -->
+  <section class="lg:col-span-2 rounded-xl bg-white border border-border-hairline p-5 md:p-6">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <h1 class="font-display text-2xl font-bold text-navy">{{ sub.name }}</h1>
+        <p class="text-sm text-text-muted mt-1">Received {{ sub.submitted_at | localtime }} · {{ sub.service_label }}</p>
+      </div>
+      {{ status_badge(sub.status, sub.status_label) }}
+    </div>
+
+    <div class="mt-5 whitespace-pre-line text-text-body leading-relaxed bg-bg-light rounded-lg p-4">{{ sub.message }}</div>
+
+    <dl class="mt-5 grid sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+      <div><dt class="text-text-muted">Email</dt><dd><a href="mailto:{{ sub.email }}" class="text-navy font-medium hover:underline break-all">{{ sub.email }}</a></dd></div>
+      <div><dt class="text-text-muted">Phone</dt><dd class="text-navy font-medium">{% if sub.phone %}<a href="tel:{{ sub.phone }}" class="hover:underline">{{ sub.phone }}</a>{% else %}—{% endif %}</dd></div>
+      <div><dt class="text-text-muted">Prefers</dt><dd class="text-navy font-medium">{{ sub.contact_label }}</dd></div>
+      <div><dt class="text-text-muted">Consent to store details</dt><dd class="text-navy font-medium">{{ 'Yes' if sub.consent else 'Not recorded (sent before the consent box existed)' }}</dd></div>
+    </dl>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      <a href="mailto:{{ sub.email }}?subject={{ 'Re: your enquiry to P.I.C Global Solutions' | urlencode }}" class="px-4 py-2 rounded-md bg-navy text-white text-sm font-semibold hover:bg-navy/90">Reply by email</a>
+      {% if sub.whatsapp_link %}<a href="{{ sub.whatsapp_link }}" target="_blank" rel="noopener" class="px-4 py-2 rounded-md border border-border-hairline text-sm font-semibold text-navy hover:bg-bg-light">WhatsApp</a>{% endif %}
+      {% if sub.phone %}<a href="tel:{{ sub.phone }}" class="px-4 py-2 rounded-md border border-border-hairline text-sm font-semibold text-navy hover:bg-bg-light">Call</a>{% endif %}
+    </div>
+  </section>
+
+  <!-- Status + notes -->
+  <aside class="space-y-4 md:space-y-6">
+    <section class="rounded-xl bg-white border border-border-hairline p-5">
+      <h2 class="font-semibold text-navy mb-3">Status</h2>
+      <form action="{{ url_for('admin.update_status', submission_id=sub.id) }}" method="POST" class="flex gap-2">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <select name="status" aria-label="Status" class="flex-1 px-3 py-2 rounded-md border border-border-hairline bg-white text-sm">
+          {% for key, label in statuses %}<option value="{{ key }}" {{ 'selected' if sub.status == key }}>{{ label }}</option>{% endfor %}
+        </select>
+        <button type="submit" class="px-4 py-2 rounded-md bg-navy text-white text-sm font-semibold hover:bg-navy/90">Save</button>
+      </form>
+      {% if sub.contacted_at %}<p class="mt-2 text-xs text-text-muted">First contacted {{ sub.contacted_at | localtime }}</p>{% endif %}
+    </section>
+
+    <section class="rounded-xl bg-white border border-border-hairline p-5">
+      <h2 class="font-semibold text-navy mb-3">Notes &amp; history</h2>
+      <form action="{{ url_for('admin.add_note', submission_id=sub.id) }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="note" class="sr-only">Add a private note</label>
+        <textarea id="note" name="body" rows="3" maxlength="5000" required placeholder="Private note, e.g. “Called, sending a quote Friday”"
+                  class="w-full px-3 py-2 rounded-md border border-border-hairline text-sm focus:outline-none focus:ring-2 focus:ring-gold/40"></textarea>
+        <button type="submit" class="mt-2 px-4 py-2 rounded-md border border-border-hairline text-sm font-semibold text-navy hover:bg-bg-light">Add note</button>
+      </form>
+
+      <ol class="mt-4 space-y-3 text-sm">
+        {% for a in sub.activities %}
+        <li class="border-l-2 {{ 'border-gold' if a.kind == 'note' else 'border-border-hairline' }} pl-3">
+          {% if a.kind == 'note' %}
+            <p class="whitespace-pre-line text-text-body">{{ a.body }}</p>
+          {% else %}
+            <p class="text-text-body">Status: {{ status_labels.get(a.from_status, a.from_status) }} → <span class="font-semibold">{{ status_labels.get(a.to_status, a.to_status) }}</span></p>
+          {% endif %}
+          <p class="text-xs text-text-muted mt-0.5">{{ a.author or 'admin' }} · {{ a.created_at | localtime }}</p>
+        </li>
+        {% endfor %}
+        <li class="border-l-2 border-border-hairline pl-3">
+          <p class="text-text-body">Enquiry received</p>
+          <p class="text-xs text-text-muted mt-0.5">{{ sub.submitted_at | localtime }}</p>
+        </li>
+      </ol>
+    </section>
+
+    <form action="{{ url_for('admin.delete_message', submission_id=sub.id) }}" method="POST"
+          onsubmit="return confirm('Delete this enquiry and its notes permanently? This cannot be undone.');">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" class="text-sm text-red-700 hover:underline">Delete enquiry</button>
+    </form>
+  </aside>
+</div>
+{% endblock %}

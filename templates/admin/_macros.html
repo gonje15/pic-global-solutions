@@ -1,0 +1,36 @@
+{# Status pill: colour plus the status name, so it never relies on colour alone. #}
+{% macro status_badge(status, label) -%}
+{% set styles = {
+  'new': 'bg-amber-50 text-amber-900 border-amber-300',
+  'contacted': 'bg-sky-50 text-sky-900 border-sky-300',
+  'won': 'bg-emerald-50 text-emerald-900 border-emerald-300',
+  'lost': 'bg-slate-100 text-slate-700 border-slate-300',
+} %}
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-xs font-semibold whitespace-nowrap {{ styles.get(status, 'bg-slate-100 text-slate-700 border-slate-300') }}">
+  <span class="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true"></span>{{ label }}
+</span>
+{%- endmacro %}
+
+{# Horizontal bar list: one series, value labelled directly on each row, hover shows the share. #}
+{% macro bar_list(rows, empty_text='No data yet.') -%}
+{% set max_v = (rows | map(attribute=1) | max) if rows else 0 %}
+{% set total = rows | sum(attribute=1) %}
+{% if total == 0 %}
+<p class="text-sm text-text-muted py-6 text-center">{{ empty_text }}</p>
+{% else %}
+<ul class="space-y-3">
+  {% for label, value in rows %}
+  <li class="group" title="{{ label }}: {{ value }} ({{ (100 * value / total) | round | int }}%)">
+    <div class="flex items-baseline justify-between gap-3 text-sm">
+      <span class="text-text-body truncate">{{ label }}</span>
+      <span class="font-semibold text-navy tabular-nums">{{ value }}</span>
+    </div>
+    <div class="mt-1.5 h-2 rounded-full bg-border-hairline/60">
+      <div class="h-2 rounded-r-[4px] rounded-l-full bg-navy group-hover:bg-navy/80 transition-colors"
+           style="width: {{ (100 * value / max_v) if max_v else 0 }}%"></div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{%- endmacro %}

@@ -39,7 +39,12 @@ SECRET_KEY=some-long-random-string
 MAIL_USERNAME=you@gmail.com
 MAIL_PASSWORD=your-gmail-app-password
 GEMINI_API_KEY=your-gemini-key
+ADMIN_USERNAME=admin
+DISPLAY_TIMEZONE=UTC
 ```
+
+[`.env.example`](.env.example) lists the optional settings too (WhatsApp number, booking link,
+Cloudflare Turnstile spam check, auto-reply).
 
 To generate a SECRET_KEY, run `python -c "import secrets; print(secrets.token_hex(32))"`.
 
@@ -60,7 +65,26 @@ To generate a SECRET_KEY, run `python -c "import secrets; print(secrets.token_he
 7. Turn on **Force HTTPS**.
 8. Click **Reload**, then visit `https://YOUR_USERNAME.pythonanywhere.com`.
 
-The SQLite database (`instance/contacts.db`) is created automatically on the first request.
+Then, in the Bash console, create the database and the admin password:
+
+```bash
+cd ~/pic-global-solutions && workon pic-venv
+flask --app app db upgrade
+flask --app app hash-password      # paste the printed ADMIN_PASSWORD_HASH='...' line into .env
+```
+
+Click **Reload** again and log in at `https://YOUR_USERNAME.pythonanywhere.com/admin`.
+
+## Daily database backups
+
+On the **Tasks** tab, add a daily scheduled task (free accounts get one):
+
+```
+cd /home/YOUR_USERNAME/pic-global-solutions && /home/YOUR_USERNAME/.virtualenvs/pic-venv/bin/flask --app app backup-db
+```
+
+It keeps the newest 14 copies in `instance/backups/`. Download one now and then from the **Files** tab
+so a copy also exists off the server.
 
 ## Updating the site later
 
@@ -68,6 +92,7 @@ The SQLite database (`instance/contacts.db`) is created automatically on the fir
 cd ~/pic-global-solutions
 git pull
 workon pic-venv && pip install -r requirements.txt   # only if requirements changed
+flask --app app db upgrade                            # applies any new database migrations (safe to always run)
 ```
 
 Then click **Reload** on the Web tab.

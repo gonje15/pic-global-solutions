@@ -1,0 +1,148 @@
+{% extends "admin/base.html" %}
+{% from "admin/_macros.html" import status_badge, bar_list %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+
+<div class="flex flex-wrap items-end justify-between gap-3 mb-6">
+  <div>
+    <h1 class="font-display text-2xl md:text-3xl font-bold text-navy">Overview</h1>
+    <p class="text-sm text-text-muted mt-1">{{ total }} enquir{{ 'y' if total == 1 else 'ies' }} in total</p>
+  </div>
+  <a href="{{ url_for('admin.messages', status='new') }}" class="px-4 py-2 rounded-md bg-navy text-white text-sm font-semibold hover:bg-navy/90">
+    Reply to new enquiries →
+  </a>
+</div>
+
+<!-- Headline numbers -->
+<section class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+  <a href="{{ url_for('admin.messages', status='new') }}" class="rounded-xl bg-white border border-border-hairline p-4 md:p-5 hover:shadow-sm">
+    <p class="text-xs font-semibold uppercase tracking-wider text-text-muted">Awaiting reply</p>
+    <p class="mt-2 font-display text-3xl md:text-4xl font-bold text-navy tabular-nums">{{ new }}</p>
+    <p class="mt-1 text-xs text-text-muted">status “New”</p>
+  </a>
+  <div class="rounded-xl bg-white border border-border-hairline p-4 md:p-5">
+    <p class="text-xs font-semibold uppercase tracking-wider text-text-muted">This week</p>
+    <p class="mt-2 font-display text-3xl md:text-4xl font-bold text-navy tabular-nums">{{ this_week }}</p>
+    <p class="mt-1 text-xs text-text-muted">
+      {% set diff = this_week - last_week %}
+      {{ last_week }} last week{% if diff %} · {{ '+' if diff > 0 else '−' }}{{ diff | abs }}{% endif %}
+    </p>
+  </div>
+  <div class="rounded-xl bg-white border border-border-hairline p-4 md:p-5">
+    <p class="text-xs font-semibold uppercase tracking-wider text-text-muted">Avg. first response</p>
+    <p class="mt-2 font-display text-3xl md:text-4xl font-bold text-navy tabular-nums">
+      {% if avg_response_hours is none %}—{% elif avg_response_hours < 48 %}{{ avg_response_hours | round(1) }}<span class="text-lg font-sans font-semibold text-text-muted"> h</span>{% else %}{{ (avg_response_hours / 24) | round(1) }}<span class="text-lg font-sans font-semibold text-text-muted"> days</span>{% endif %}
+    </p>
+    <p class="mt-1 text-xs text-text-muted">last 90 days</p>
+  </div>
+  <div class="rounded-xl bg-white border border-border-hairline p-4 md:p-5">
+    <p class="text-xs font-semibold uppercase tracking-wider text-text-muted">Win rate</p>
+    <p class="mt-2 font-display text-3xl md:text-4xl font-bold text-navy tabular-nums">
+      {% if win_rate is none %}—{% else %}{{ win_rate }}<span class="text-lg font-sans font-semibold text-text-muted">%</span>{% endif %}
+    </p>
+    <p class="mt-1 text-xs text-text-muted">won ÷ (won + lost)</p>
+  </div>
+</section>
+
+<div class="mt-4 md:mt-6 grid lg:grid-cols-3 gap-4 md:gap-6">
+
+  <!-- Enquiries per week -->
+  <section class="lg:col-span-2 rounded-xl bg-white border border-border-hairline p-4 md:p-6">
+    <h2 class="font-semibold text-navy">Enquiries per week</h2>
+    <p class="text-xs text-text-muted">Last 12 weeks · weeks start Monday</p>
+    {% set max_w = weekly | map(attribute=1) | max %}
+    {% if max_w == 0 %}
+      <p class="text-sm text-text-muted py-16 text-center">No enquiries in the last 12 weeks.</p>
+    {% else %}
+    <div class="mt-6 flex items-end gap-[2px] h-44 border-b border-border-hairline" role="img"
+         aria-label="Bar chart of enquiries per week; see the table below for values.">
+      {% for label, n in weekly %}
+      <div class="group relative flex-1 h-full flex flex-col justify-end items-center">
+        {% set anchor = 'left-0' if loop.index0 < 2 else ('right-0' if loop.revindex0 < 2 else 'left-1/2 -translate-x-1/2') %}
+        <span class="absolute -top-1 -translate-y-full {{ anchor }} whitespace-nowrap rounded bg-navy text-white text-xs px-2 py-1 hidden group-hover:block pointer-events-none z-10">
+          Week of {{ label }}: {{ n }}
+        </span>
+        {% if loop.last or n == max_w %}
+        <span class="text-[11px] font-semibold text-navy tabular-nums mb-1">{{ n }}</span>
+        {% endif %}
+        <div class="w-full max-w-10 rounded-t-[4px] {{ 'bg-navy' if n else 'bg-transparent' }} group-hover:bg-navy/80"
+             style="height: {{ (100 * n / max_w) if n else 0 }}%; min-height: {{ '2px' if n else '0' }}"></div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="flex gap-[2px] mt-2">
+      {% for label, n in weekly %}
+      <span class="flex-1 text-center text-[10px] text-text-muted {{ '' if loop.index0 % 3 == 2 or loop.last else 'invisible' }}">{{ label }}</span>
+      {% endfor %}
+    </div>
+    <details class="mt-4 text-sm">
+      <summary class="cursor-pointer text-text-muted hover:text-navy">Show as table</summary>
+      <table class="mt-2 w-full text-left">
+        <thead><tr class="text-xs text-text-muted"><th class="py-1 font-medium">Week starting</th><th class="py-1 font-medium text-right">Enquiries</th></tr></thead>
+        <tbody>
+          {% for label, n in weekly | reverse %}
+          <tr class="border-t border-border-hairline"><td class="py-1">{{ label }}</td><td class="py-1 text-right tabular-nums">{{ n }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </details>
+    {% endif %}
+  </section>
+
+  <!-- Pipeline -->
+  <section class="rounded-xl bg-white border border-border-hairline p-4 md:p-6">
+    <h2 class="font-semibold text-navy">Pipeline</h2>
+    <p class="text-xs text-text-muted">All enquiries by status</p>
+    <ul class="mt-4 divide-y divide-border-hairline">
+      {% for label, n, key in by_status %}
+      <li>
+        <a href="{{ url_for('admin.messages', status=key) }}" class="flex items-center justify-between py-2.5 hover:bg-bg-light -mx-2 px-2 rounded">
+          {{ status_badge(key, label) }}
+          <span class="font-semibold text-navy tabular-nums">{{ n }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <!-- By service -->
+  <section class="rounded-xl bg-white border border-border-hairline p-4 md:p-6">
+    <h2 class="font-semibold text-navy">What people ask about</h2>
+    <p class="text-xs text-text-muted mb-4">Service chosen on the contact form (all time)</p>
+    {{ bar_list(by_service, 'No enquiries yet.') }}
+  </section>
+
+  <!-- AI widget -->
+  <section class="rounded-xl bg-white border border-border-hairline p-4 md:p-6">
+    <h2 class="font-semibold text-navy">AI widget</h2>
+    <p class="text-xs text-text-muted mb-4">{{ ai_total }} question{{ '' if ai_total == 1 else 's' }} in the last 30 days · services it suggested</p>
+    {{ bar_list(ai_by_service, 'Nobody has used the widget in the last 30 days.') }}
+    <a href="{{ url_for('admin.insights') }}" class="mt-4 inline-block text-sm font-semibold text-gold hover:underline">See what visitors asked →</a>
+  </section>
+
+  <!-- Recent -->
+  <section class="rounded-xl bg-white border border-border-hairline p-4 md:p-6">
+    <div class="flex items-baseline justify-between">
+      <h2 class="font-semibold text-navy">Latest enquiries</h2>
+      <a href="{{ url_for('admin.messages') }}" class="text-sm font-semibold text-gold hover:underline">Inbox →</a>
+    </div>
+    {% if recent %}
+    <ul class="mt-3 divide-y divide-border-hairline">
+      {% for s in recent %}
+      <li>
+        <a href="{{ url_for('admin.message_detail', submission_id=s.id) }}" class="block py-2.5 hover:bg-bg-light -mx-2 px-2 rounded">
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-medium text-navy truncate">{{ s.name }}</span>
+            {{ status_badge(s.status, s.status_label) }}
+          </div>
+          <p class="text-xs text-text-muted mt-0.5">{{ s.service_label }} · {{ s.submitted_at | localtime('%d %b, %H:%M') }}</p>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-sm text-text-muted py-6 text-center">No enquiries yet.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

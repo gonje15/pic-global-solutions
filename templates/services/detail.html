@@ -15,7 +15,7 @@
       <p class="mt-6 text-lg text-white/80 max-w-lg leading-relaxed">
         {{ service.intro }}
       </p>
-      <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+      <a href="{{ booking_url }}" class="mt-8 inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
         Book a Free Consultation
       </a>
     </div>
@@ -77,9 +77,12 @@
     <p class="mt-5 text-white/75">
       {{ service.cta_text }}
     </p>
-    <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+    <a href="{{ booking_url }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
       Book Your Free Consultation
     </a>
+    <p class="mt-4 text-sm text-white/70">
+      Prefer to write? <a href="{{ url_for('public.contact', service=slug) }}" class="underline hover:text-gold">Send us a message about {{ service.name }}</a>.
+    </p>
   </div>
 </section>
 

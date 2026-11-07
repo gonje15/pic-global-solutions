@@ -1,0 +1,51 @@
+{% extends "admin/base.html" %}
+{% from "admin/_macros.html" import bar_list %}
+{% block title %}AI insights{% endblock %}
+{% block content %}
+
+<h1 class="font-display text-2xl md:text-3xl font-bold text-navy">AI insights</h1>
+<p class="text-sm text-text-muted mt-1 mb-6">What visitors typed into “Tell us about your business” on the Services page, and what the assistant suggested.</p>
+
+<div class="grid lg:grid-cols-3 gap-4 md:gap-6">
+  <section class="rounded-xl bg-white border border-border-hairline p-5 h-fit">
+    <h2 class="font-semibold text-navy">Suggested services</h2>
+    <p class="text-xs text-text-muted mb-4">{{ total }} question{{ '' if total == 1 else 's' }} (all time); an answer can mention two services</p>
+    {{ bar_list(by_service, 'Nobody has used the widget yet.') }}
+  </section>
+
+  <section class="lg:col-span-2 rounded-xl bg-white border border-border-hairline">
+    {% if page.items %}
+    <ul class="divide-y divide-border-hairline">
+      {% for q in page.items %}
+      <li class="p-4 md:p-5">
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted">
+          <span>{{ q.created_at | localtime }}</span>
+          {% if not q.ok %}
+            <span class="px-2 py-0.5 rounded-full border border-red-300 bg-red-50 text-red-800 font-semibold">Assistant failed to answer</span>
+          {% elif q.suggested_labels %}
+            <span class="font-semibold text-navy">{{ q.suggested_labels | join(' + ') }}</span>
+          {% endif %}
+        </div>
+        <p class="mt-2 text-text-body">“{{ q.description }}”</p>
+        {% if q.recommendation %}
+        <details class="mt-2 text-sm">
+          <summary class="cursor-pointer text-text-muted hover:text-navy">Assistant's answer</summary>
+          <p class="mt-1 text-text-muted whitespace-pre-line">{{ q.recommendation }}</p>
+        </details>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% if page.pages > 1 %}
+    <nav class="p-4 flex items-center justify-between text-sm border-t border-border-hairline" aria-label="Pagination">
+      {% if page.has_prev %}<a href="{{ url_for('admin.insights', page=page.prev_num) }}" class="px-3 py-2 rounded-md border border-border-hairline hover:bg-bg-light">← Newer</a>{% else %}<span></span>{% endif %}
+      <span class="text-text-muted">Page {{ page.page }} of {{ page.pages }}</span>
+      {% if page.has_next %}<a href="{{ url_for('admin.insights', page=page.next_num) }}" class="px-3 py-2 rounded-md border border-border-hairline hover:bg-bg-light">Older →</a>{% else %}<span></span>{% endif %}
+    </nav>
+    {% endif %}
+    {% else %}
+    <p class="p-10 text-center text-text-muted">Nobody has used the widget yet.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}
