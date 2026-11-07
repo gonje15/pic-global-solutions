@@ -15,7 +15,7 @@
         From supply to strategy, we handle the operational and financial details so you can focus on running your business — with the accuracy, compliance, and reliability that growth demands.
       </p>
       <div class="mt-8 flex flex-wrap gap-4">
-        <a href="#contact" class="inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+        <a href="{{ url_for('contact') }}" class="inline-flex items-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
           Book a Free Consultation
         </a>
         <a href="{{ url_for('services') }}" class="inline-flex items-center px-7 py-3.5 rounded-md border border-white/30 text-white font-semibold hover:bg-white/10 transition">
@@ -25,8 +25,9 @@
     </div>
     <!-- TODO: replace with a real photo of a consultancy team in genuine conversation -->
     <div class="fade-up rounded-xl overflow-hidden aspect-[4/3]">
-  <img src="{{ url_for('static', filename='images/hero-team.jpg') }}" alt="P.I.C Global Solutions team in conversation" class="w-full h-full object-cover">
-</div>
+      <img src="{{ url_for('static', filename='images/hero-team.webp') }}" alt="P.I.C Global Solutions team in conversation" class="w-full h-full object-cover" width="1600" height="1067" fetchpriority="high">
+    </div>
+  </div>
 </section>
 
 <!-- ============ 2. TRUST BAR ============ -->
@@ -184,9 +185,11 @@
 
     </div>
 
-<p class="fade-up mt-16 text-center text-text-muted italic max-w-xl mx-auto">
+    <p class="fade-up mt-16 text-center text-text-muted italic max-w-xl mx-auto">
       "We treat every engagement — no matter its size — with the same structured rigor and accountability we'd want from a partner handling our own business."
     </p>
+  </div>
+</section>
 
 <!-- ============ 8. VISION & MISSION (TEASER) ============ -->
 <section class="bg-navy text-white">
@@ -247,7 +250,7 @@
     <p class="mt-5 text-white/75">
       Book a free consultation and get a clear plan for your supply, compliance, or growth needs — no obligation, no pressure.
     </p>
-    <a href="mailto:info@picglobalsolutions.com" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
+    <a href="{{ url_for('contact') }}" class="mt-8 inline-flex items-center px-8 py-4 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">
       Book Your Free Consultation
     </a>
     <p class="mt-4 text-xs text-white/50">

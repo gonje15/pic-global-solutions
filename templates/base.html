@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}P.I.C Global Solutions{% endblock %}</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="description" content="P.I.C Global Solutions — practical solutions in Supply of Goods, Business Consultancy, and Marketing & Business Development.">
 
   <!-- Google Fonts: Playfair Display (headings) + Inter (body) -->
@@ -11,40 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<!-- Compiled Tailwind CSS (no external dependency) -->
-<link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+  <!-- Compiled Tailwind CSS: rebuild with `npm run build:css` -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
 
-<style>
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; color: #2E3440; }
-  .font-display { font-family: 'Playfair Display', serif; }
-  .fade-up { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-  .fade-up.is-visible { opacity: 1; transform: translateY(0); }
-
-  .btn-glow-wrap {
-    position: relative;
-    z-index: 1;
-  }
-  .btn-glow-wrap::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #C9A227, #F5E1A4, #8a6d1a, #F5E1A4, #C9A227);
-    background-size: 300% 100%;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .btn-glow-wrap.btn-glow::before {
-    opacity: 1;
-    animation: border-flow 1.2s linear infinite;
-  }
-  @keyframes border-flow {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
-  }
-</style>
 
   {% block extra_head %}{% endblock %}
 </head>
@@ -62,11 +32,11 @@
         <a href="{{ url_for('home') }}" class="hover:text-navy transition-colors">Home</a>
         <a href="{{ url_for('services') }}" class="hover:text-navy transition-colors">Services</a>
         <a href="{{ url_for('about') }}" class="hover:text-navy transition-colors">About</a>
-        <a href="#insights" class="hover:text-navy transition-colors">Insights</a>
+        <a href="{{ url_for('home') }}#insights" class="hover:text-navy transition-colors">Insights</a>
         <a href="{{ url_for('contact') }}" class="hover:text-navy transition-colors">Contact</a>
       </nav>
 
-      <a href="#contact" class="hidden md:inline-flex items-center px-5 py-2.5 rounded-md bg-navy text-white text-sm font-semibold hover:bg-navy/90 transition-colors">
+      <a href="{{ url_for('contact') }}" class="hidden md:inline-flex items-center px-5 py-2.5 rounded-md bg-navy text-white text-sm font-semibold hover:bg-navy/90 transition-colors">
         Book Your Free Consultation
       </a>
 
@@ -82,9 +52,9 @@
       <a href="{{ url_for('home') }}">Home</a>
       <a href="{{ url_for('services') }}">Services</a>
       <a href="{{ url_for('about') }}">About</a>
-      <a href="#insights">Insights</a>
+      <a href="{{ url_for('home') }}#insights">Insights</a>
       <a href="{{ url_for('contact') }}">Contact</a>
-      <a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 rounded-md bg-navy text-white font-semibold">
+      <a href="{{ url_for('contact') }}" class="inline-flex items-center justify-center px-5 py-2.5 rounded-md bg-navy text-white font-semibold">
         Book Your Free Consultation
       </a>
     </div>
@@ -95,7 +65,7 @@
     {% if messages %}
       <div class="max-w-content mx-auto px-6 md:px-10 pt-6">
         {% for category, message in messages %}
-          <div class="rounded-md bg-gold/10 border border-gold text-navy px-4 py-3 text-sm font-medium">
+          <div role="{{ 'alert' if category == 'error' else 'status' }}" class="mb-2 rounded-md px-4 py-3 text-sm font-medium {{ 'bg-red-50 border border-red-300 text-red-800' if category == 'error' else 'bg-gold/10 border border-gold text-navy' }}">
             {{ message }}
           </div>
         {% endfor %}
@@ -115,12 +85,12 @@
       <div>
         <p class="text-sm font-semibold text-white mb-3 uppercase tracking-wide">Services</p>
         <ul class="space-y-2 text-sm text-white/70">
-         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Accounting</a></li>
-         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Tax</a></li>
-         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Advisory</a></li>
-         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Audit</a></li>
-         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Supply of Goods</a></li>
-         <li><a href="{{ url_for('services') }}" class="hover:text-gold transition-colors">Marketing</a></li>
+         <li><a href="{{ url_for('service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Accounting</a></li>
+         <li><a href="{{ url_for('service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Tax</a></li>
+         <li><a href="{{ url_for('service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Advisory</a></li>
+         <li><a href="{{ url_for('service_detail', slug='consultancy') }}" class="hover:text-gold transition-colors">Audit</a></li>
+         <li><a href="{{ url_for('service_detail', slug='supply') }}" class="hover:text-gold transition-colors">Supply of Goods</a></li>
+         <li><a href="{{ url_for('service_detail', slug='marketing') }}" class="hover:text-gold transition-colors">Marketing</a></li>
         </ul>
       </div>
       <div>

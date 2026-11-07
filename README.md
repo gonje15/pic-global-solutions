@@ -1,6 +1,26 @@
-git config user.email "176077316+gonje15@users.noreply.github.com"
-git commit --amend --reset-author --no-edit
-git push -u origin main
+# P.I.C Global Solutions
+
+Marketing site for P.I.C Global Solutions, built with Flask, Jinja templates and Tailwind CSS.
+It includes a contact form (saved to SQLite and emailed through Gmail) and a Gemini-powered
+"which service fits me?" widget.
+
+## Local setup
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env   # then fill in the values
+FLASK_DEBUG=1 python app.py
+```
+
+CSS is prebuilt in `static/css/output.css`. If you change Tailwind classes, rebuild it:
+
+```bash
+npm install
+npm run build:css
+```
+
+Deployment steps are in [DEPLOY.md](DEPLOY.md).
 
 ## Routes
 
@@ -11,17 +31,16 @@ git push -u origin main
 | `/contact` | Contact form + details |
 | `/why_us` | Why choose us (linked from About, not in main nav) |
 | `/services` | Services overview |
-| `/services/consultancy` | Business Consultancy & Advisory |
-| `/services/marketing` | Marketing & Business Development |
-| `/services/supply` | Supply of Goods |
+| `/services/<slug>` | Service detail page (`supply`, `consultancy`, `marketing`). Content lives in `services_data.py` |
+| `/api/service-fit` | POST: Gemini service recommendation (rate-limited) |
 
 ## Known TODOs Before Launch
 
-- [ ] Replace placeholder hero/team images
-- [ ] Replace placeholder phone number, address, and testimonial with real details
-- [ ] Wire the contact form to actually send email or store submissions (currently just reloads the page)
-- [ ] Decide whether "Services" nav link should point to `/services` instead of the homepage anchor
+- [ ] Replace placeholder phone number, address and testimonial with real details
 - [ ] Add real team member names/photos to the About page
+- [ ] Replace the map placeholder on the Contact page
+- [ ] Add real LinkedIn/Facebook links (currently `#`)
+- [ ] Register the domain used in `info@picglobalsolutions.com`, or change the address
 
 ## Contributing
 

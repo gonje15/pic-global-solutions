@@ -72,7 +72,7 @@ workon pic-venv && pip install -r requirements.txt   # only if requirements chan
 
 Then click **Reload** on the Web tab.
 
-If you change Tailwind classes, run `npx tailwindcss -i static/src/input.css -o static/css/output.css --minify`
+If you change Tailwind classes, run `npm run build:css`
 locally and commit `output.css` first. The server doesn't need Node.
 
 ## Troubleshooting

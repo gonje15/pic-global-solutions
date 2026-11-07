@@ -25,25 +25,31 @@
     <div class="fade-up">
       <h2 class="font-display text-2xl md:text-3xl font-bold text-navy mb-8">Send Us a Message</h2>
      <form action="{{ url_for('contact') }}" method="POST" class="space-y-5">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <!-- Honeypot: hidden from people, bots tend to fill it -->
+        <div class="hidden" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
         <div>
-          <label class="block text-sm font-medium text-text-body mb-1.5">Full Name</label>
-          <input type="text" name="name" required
+          <label for="name" class="block text-sm font-medium text-text-body mb-1.5">Full Name</label>
+          <input type="text" id="name" name="name" maxlength="100" required autocomplete="name" value="{{ form.get('name', '') }}"
                  class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40">
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-body mb-1.5">Email Address</label>
-          <input type="email" name="email" required
+          <label for="email" class="block text-sm font-medium text-text-body mb-1.5">Email Address</label>
+          <input type="email" id="email" name="email" maxlength="120" required autocomplete="email" value="{{ form.get('email', '') }}"
                  class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40">
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-body mb-1.5">Phone Number</label>
-          <input type="tel" name="phone"
+          <label for="phone" class="block text-sm font-medium text-text-body mb-1.5">Phone Number</label>
+          <input type="tel" id="phone" name="phone" maxlength="30" autocomplete="tel" value="{{ form.get('phone', '') }}"
                  class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40">
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-body mb-1.5">How Can We Help?</label>
-          <textarea name="message" rows="5" required
-                    class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40"></textarea>
+          <label for="message" class="block text-sm font-medium text-text-body mb-1.5">How Can We Help?</label>
+          <textarea id="message" name="message" rows="5" maxlength="5000" required
+                    class="w-full px-4 py-3 rounded-md border border-border-hairline focus:outline-none focus:ring-2 focus:ring-gold/40">{{ form.get('message', '') }}</textarea>
         </div>
         <button type="submit"
                 class="w-full inline-flex items-center justify-center px-7 py-3.5 rounded-md bg-gold text-navy font-semibold hover:brightness-95 transition">

@@ -89,13 +89,13 @@
     <!-- TODO: replace [Team Member Name] / [Role / Title] with real details -->
     <div class="mt-14 grid sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
       {% set team = [
-        ('team-1.jpg', '[Team Member Name]', '[Role / Title]'),
-        ('team-2.jpg', '[Team Member Name]', '[Role / Title]')
+        ('team-1.webp', '[Team Member Name]', '[Role / Title]'),
+        ('team-2.webp', '[Team Member Name]', '[Role / Title]')
       ] %}
       {% for photo, name, title in team %}
       <div class="fade-up text-center">
         <div class="h-32 w-32 mx-auto rounded-full overflow-hidden">
-          <img src="{{ url_for('static', filename='images/' + photo) }}" alt="{{ name }}" class="w-full h-full object-cover">
+          <img src="{{ url_for('static', filename='images/' + photo) }}" alt="{{ name }}" class="w-full h-full object-cover" loading="lazy">
         </div>
         <h3 class="mt-4 font-semibold text-navy">{{ name }}</h3>
         <p class="text-sm text-text-muted">{{ title }}</p>

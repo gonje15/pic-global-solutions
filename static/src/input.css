@@ -14,3 +14,38 @@
   --max-width-content: 1280px;
 }
 
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); color: var(--color-text-body); }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+/* Scroll-in animation; base.html adds .is-visible via IntersectionObserver */
+.fade-up { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.fade-up.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; transition: none; }
+}
+
+/* Animated gold border on the service-fit button while it's working */
+.btn-glow-wrap { position: relative; z-index: 1; }
+.btn-glow-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #C9A227, #F5E1A4, #8a6d1a, #F5E1A4, #C9A227);
+  background-size: 300% 100%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.btn-glow-wrap.btn-glow::before { opacity: 1; animation: border-flow 1.2s linear infinite; }
+@keyframes border-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
