@@ -49,3 +49,11 @@
   0% { background-position: 0% 50%; }
   100% { background-position: 300% 50%; }
 }
+
+/* Navy hero background. Written by hand (not Tailwind's bg-gradient-to-*) because
+   Tailwind v4 emits "linear-gradient(... in oklab ...)", which iOS Safari < 16.2
+   drops entirely, leaving white hero text on a white page. */
+@utility bg-hero {
+  background-color: #0B2545;
+  background-image: linear-gradient(to bottom right, #0B2545, #123a6b);
+}
