@@ -70,7 +70,7 @@ Then, in the Bash console, create the database and the admin password:
 ```bash
 cd ~/pic-global-solutions && workon pic-venv
 flask --app app db upgrade
-flask --app app hash-password      # paste the printed ADMIN_PASSWORD_HASH='...' line into .env
+flask --app app hash-password      # type a password twice; it is saved to .env for you
 ```
 
 Click **Reload** again and log in at `https://YOUR_USERNAME.pythonanywhere.com/admin`.

@@ -12,7 +12,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
 cp .env.example .env              # then fill in the values
 flask --app app db upgrade        # create/update the database
-flask --app app hash-password     # paste the printed line into .env
+flask --app app hash-password     # sets the admin password in .env
 flask --app app run --debug
 ```
 

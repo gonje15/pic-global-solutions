@@ -9,7 +9,7 @@
     <p class="font-semibold text-navy">Admin login isn't set up yet.</p>
     <p>In a terminal in the project folder, run:</p>
     <pre class="bg-bg-light rounded-md p-3 text-xs overflow-x-auto">flask --app app hash-password</pre>
-    <p>Copy the <code>ADMIN_PASSWORD_HASH=…</code> line it prints into <code>.env</code>, then reload the web app.</p>
+    <p>Type a password (at least 10 characters) twice. It's saved to <code>.env</code> for you; then reload the web app.</p>
   </div>
   {% else %}
   <form method="POST" class="rounded-xl border border-border-hairline bg-white p-6 space-y-4">
