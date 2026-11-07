@@ -77,7 +77,9 @@ Click **Reload** again and log in at `https://YOUR_USERNAME.pythonanywhere.com/a
 
 ## Daily database backups
 
-On the **Tasks** tab, add a daily scheduled task (free accounts get one):
+Scheduled tasks need a paid PythonAnywhere account. On the free plan, run the command below by hand
+in a Bash console now and then (for example weekly, and always before a deploy). Once you upgrade,
+add it on the **Tasks** tab as a daily scheduled task:
 
 ```
 cd /home/YOUR_USERNAME/pic-global-solutions && /home/YOUR_USERNAME/.virtualenvs/pic-venv/bin/flask --app app backup-db
